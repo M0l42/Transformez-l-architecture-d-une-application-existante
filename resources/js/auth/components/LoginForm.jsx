@@ -1,6 +1,12 @@
 import { useState } from 'react';
 import { useLoginMutation } from '../authApi';
 
+// Not reachable from normal navigation right now: /login still goes through
+// the Livewire Volt page, because the sidebar and the dashboard route are
+// gated behind a real Laravel session, which this token-only API login
+// doesn't create. This stays mounted as the fallback #app renders if it
+// ever loads without a bootstrapped token, and as groundwork for moving
+// /login to React once the session/token bridging story is worked out.
 export default function LoginForm() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
