@@ -28,14 +28,10 @@ export default function NoteForm() {
                 value={text}
                 onChange={(e) => setText(e.target.value)}
                 placeholder="Write your note..."
-                className="w-full border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white p-2"
+                className="w-full border p-2"
             />
 
-            <select
-                value={tagId}
-                onChange={(e) => setTagId(e.target.value)}
-                className="w-full border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white p-2"
-            >
+            <select value={tagId} onChange={(e) => setTagId(e.target.value)} className="w-full border p-2">
                 <option value="">-- Select Tag --</option>
                 {tags?.map((tag) => (
                     <option key={tag.id} value={tag.id}>

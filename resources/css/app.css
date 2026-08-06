@@ -45,6 +45,12 @@
     ::file-selector-button {
         border-color: var(--color-gray-200, currentColor);
     }
+
+    input,
+    textarea,
+    select {
+        @apply border-neutral-300 bg-white text-neutral-900 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white;
+    }
 }
 
 [data-flux-field]:not(ui-radio, ui-checkbox) {

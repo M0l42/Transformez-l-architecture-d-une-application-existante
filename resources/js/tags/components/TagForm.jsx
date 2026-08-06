@@ -30,7 +30,7 @@ export default function TagForm() {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="New tag name"
-                    className="border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white rounded px-3 py-1 text-sm w-full"
+                    className="border rounded px-3 py-1 text-sm w-full"
                 />
                 <button type="submit" disabled={isLoading} className="bg-blue-500 text-white px-4 py-2">
                     {isLoading ? 'Adding...' : 'Add Tag'}

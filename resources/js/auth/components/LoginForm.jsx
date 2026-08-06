@@ -45,7 +45,7 @@ export default function LoginForm() {
                             autoFocus
                             autoComplete="email"
                             placeholder="email@example.com"
-                            className="w-full border border-neutral-300 dark:border-neutral-700 rounded-md px-3 py-2 text-sm bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white"
+                            className="w-full border rounded-md px-3 py-2 text-sm"
                         />
                     </div>
 
@@ -61,7 +61,7 @@ export default function LoginForm() {
                             required
                             autoComplete="current-password"
                             placeholder="Mot de passe"
-                            className="w-full border border-neutral-300 dark:border-neutral-700 rounded-md px-3 py-2 text-sm bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white"
+                            className="w-full border rounded-md px-3 py-2 text-sm"
                         />
                     </div>
 
