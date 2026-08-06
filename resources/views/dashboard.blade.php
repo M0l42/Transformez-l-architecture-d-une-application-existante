@@ -11,6 +11,8 @@
             <livewire:tag-form />
         </div>
 
+        <div id="app"></div>
+
     </div>
 
     @livewireScripts

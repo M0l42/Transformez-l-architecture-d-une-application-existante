@@ -6,11 +6,16 @@
         "dev": "vite"
     },
     "dependencies": {
+        "@reduxjs/toolkit": "^2.12.0",
         "@tailwindcss/vite": "^4.0.7",
+        "@vitejs/plugin-react": "^4.7.0",
         "autoprefixer": "^10.4.20",
         "axios": "^1.7.4",
         "concurrently": "^9.0.1",
         "laravel-vite-plugin": "^1.0",
+        "react": "^19.2.8",
+        "react-dom": "^19.2.8",
+        "react-redux": "^9.3.0",
         "tailwindcss": "^4.0.7",
         "vite": "^6.0"
     },
