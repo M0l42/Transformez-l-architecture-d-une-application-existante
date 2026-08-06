@@ -1,11 +1,24 @@
 import { createRoot } from 'react-dom/client';
+import { Provider } from 'react-redux';
+import { store } from './shared/store';
+import NoteList from './notes/components/NoteList';
+import NoteForm from './notes/components/NoteForm';
 
 function App() {
-    return <div>React app</div>;
+    return (
+        <div>
+            <NoteForm />
+            <NoteList />
+        </div>
+    );
 }
 
 const container = document.getElementById('app');
 
 if (container) {
-    createRoot(container).render(<App />);
+    createRoot(container).render(
+        <Provider store={store}>
+            <App />
+        </Provider>
+    );
 }
