@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Http\Resources\UserResource;
 use App\Services\AuthService;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
@@ -21,10 +22,7 @@ class AuthController extends Controller
 
         return $this->success([
             'token' => $result['token'],
-            'user' => [
-                'id' => $result['user']->id,
-                'name' => $result['user']->name,
-            ],
+            'user' => new UserResource($result['user']),
         ], "Compte créé", 201);
     }
 
@@ -38,10 +36,7 @@ class AuthController extends Controller
 
         return $this->success([
             'token' => $result['token'],
-            'user' => [
-                'id' => $result['user']->id,
-                'name' => $result['user']->name,
-            ],
+            'user' => new UserResource($result['user']),
         ], "Connecté");
     }
 
