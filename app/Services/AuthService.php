@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class AuthService
@@ -41,13 +40,10 @@ class AuthService
         $user->currentAccessToken()->delete();
     }
 
-    public function issueSpaToken(User $user, Request $request): string
+    public function issueSpaToken(User $user): string
     {
-        if (! $request->session()->has('spa_token')) {
-            $user->tokens()->where('name', 'spa')->delete();
-            $request->session()->put('spa_token', $user->createToken('spa')->plainTextToken);
-        }
+        $user->tokens()->where('name', 'spa')->delete();
 
-        return $request->session()->get('spa_token');
+        return $user->createToken('spa')->plainTextToken;
     }
 }
