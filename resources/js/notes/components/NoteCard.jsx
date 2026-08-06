@@ -1,4 +1,5 @@
 import { useDeleteNoteMutation } from '../notesApi';
+import TrashIcon from '../../shared/icons/TrashIcon';
 
 export default function NoteCard({ note }) {
     const [deleteNote, { isLoading }] = useDeleteNoteMutation();
@@ -20,7 +21,12 @@ export default function NoteCard({ note }) {
                 <p>{note.text}</p>
                 <small className="text-gray-500">Tag: {note.tag?.name ?? '—'}</small>
             </div>
-            <button onClick={handleDelete} disabled={isLoading} className="text-red-500 text-sm">
+            <button
+                onClick={handleDelete}
+                disabled={isLoading}
+                className="inline-flex items-center gap-1 border border-red-300 dark:border-red-800 text-red-600 dark:text-red-400 text-sm px-2 py-1 rounded hover:bg-red-50 dark:hover:bg-red-950 disabled:opacity-50"
+            >
+                <TrashIcon className="w-4 h-4" />
                 {isLoading ? 'Deleting...' : 'Delete'}
             </button>
         </div>
