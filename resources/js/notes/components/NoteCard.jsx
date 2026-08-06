@@ -15,10 +15,13 @@ export default function NoteCard({ note }) {
     };
 
     return (
-        <div className="note-card">
-            <p>{note.text}</p>
-            <button onClick={handleDelete} disabled={isLoading}>
-                {isLoading ? 'Suppression...' : 'Supprimer'}
+        <div className="border p-3 flex justify-between items-start">
+            <div>
+                <p>{note.text}</p>
+                <small className="text-gray-500">Tag: {note.tag?.name ?? '—'}</small>
+            </div>
+            <button onClick={handleDelete} disabled={isLoading} className="text-red-500 text-sm">
+                {isLoading ? 'Deleting...' : 'Delete'}
             </button>
         </div>
     );

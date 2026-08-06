@@ -2,13 +2,14 @@
 
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\NoteController;
 
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::view('dashboard', 'dashboard')
+Route::get('dashboard', DashboardController::class)
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
@@ -18,8 +19,8 @@ Route::middleware(['auth'])->group(function () {
     Volt::route('settings/profile', 'settings.profile')->name('settings.profile');
     Volt::route('settings/password', 'settings.password')->name('settings.password');
     Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
-    Route::view('/notes', 'dashboard');
-    Route::view('/tags', 'dashboard');
+    Route::get('/notes', DashboardController::class);
+    Route::get('/tags', DashboardController::class);
 });
 
 require __DIR__ . '/auth.php';

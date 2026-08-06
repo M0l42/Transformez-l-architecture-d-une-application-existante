@@ -1,52 +1,62 @@
 import { createRoot } from 'react-dom/client';
-import { Provider, useDispatch, useSelector } from 'react-redux';
+import { Provider, useSelector } from 'react-redux';
 import { store } from './shared/store';
 import NoteList from './notes/components/NoteList';
 import NoteForm from './notes/components/NoteForm';
 import TagForm from './tags/components/TagForm';
 import LoginForm from './auth/components/LoginForm';
-import { logout, selectCurrentUser, selectIsAuthenticated } from './auth/authSlice';
-import { useLogoutMutation } from './auth/authApi';
+import { selectIsAuthenticated, setCredentials } from './auth/authSlice';
 
 function App() {
     const isAuthenticated = useSelector(selectIsAuthenticated);
-    const user = useSelector(selectCurrentUser);
-    const dispatch = useDispatch();
-    const [logoutRequest] = useLogoutMutation();
 
     if (!isAuthenticated) {
         return <LoginForm />;
     }
 
-    const handleLogout = async () => {
-        try {
-            await logoutRequest().unwrap();
-        } catch (error) {
-            console.error(error);
-        } finally {
-            dispatch(logout());
-        }
-    };
-
     return (
-        <div>
-            <div className="flex justify-end items-center gap-4 mb-4">
-                {user && <span>Connecté en tant que {user.name}</span>}
-                <button onClick={handleLogout}>Se déconnecter</button>
+        <>
+            <div className="mt-6 p-4 border border-neutral-200 dark:border-neutral-700 rounded-xl bg-white dark:bg-neutral-900">
+                <div className="space-y-4">
+                    <NoteForm />
+                    <hr />
+                    <h2 className="text-xl font-bold">Your Notes</h2>
+                    <NoteList />
+                </div>
             </div>
-            <TagForm />
-            <NoteForm />
-            <NoteList />
-        </div>
+
+            <div className="mt-6 p-4 border border-neutral-200 dark:border-neutral-700 rounded-xl bg-white dark:bg-neutral-900">
+                <TagForm />
+            </div>
+        </>
     );
 }
 
-const container = document.getElementById('app');
+let root = null;
 
-if (container) {
-    createRoot(container).render(
+function mountApp() {
+    const container = document.getElementById('app');
+    if (!container) return;
+
+    const bootstrapToken = container.dataset.token;
+    if (bootstrapToken) {
+        store.dispatch(setCredentials({ token: bootstrapToken, user: null }));
+    }
+
+    if (root) {
+        root.unmount();
+    }
+
+    root = createRoot(container);
+    root.render(
         <Provider store={store}>
             <App />
         </Provider>
     );
 }
+
+// wire:navigate swaps #app for a fresh DOM node without re-running this
+// module script, so the mount has to be re-triggered on every Livewire
+// client-side navigation (this event also fires on the initial page load).
+mountApp();
+document.addEventListener('livewire:navigated', mountApp);

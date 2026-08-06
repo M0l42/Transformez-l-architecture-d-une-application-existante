@@ -13,12 +13,10 @@ export default function NoteList() {
     }
 
     return (
-        <ul>
+        <div className="space-y-4">
             {data?.map((note) => (
-                <li key={note.id}>
-                    <NoteCard note={note} />
-                </li>
+                <NoteCard key={note.id} note={note} />
             ))}
-        </ul>
+        </div>
     );
 }

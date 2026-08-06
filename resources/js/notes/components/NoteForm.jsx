@@ -9,9 +9,10 @@ export default function NoteForm() {
     const { data: tags } = useGetTagsQuery();
     const [createNote, { isLoading }] = useCreateNoteMutation();
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (e) => {
+        e.preventDefault();
         if (!text || !tagId) return;
-        try{
+        try {
             await createNote({ text, tag_id: Number(tagId) }).unwrap();
             setText('');
             setTagId('');
@@ -19,28 +20,29 @@ export default function NoteForm() {
             console.error(error);
             alert("Erreur lors de la création de la note.");
         }
-
     };
 
     return (
-        <div>
-            <select value={tagId} onChange={(e) => setTagId(e.target.value)}>
-                <option value="">Select a tag</option>
+        <form onSubmit={handleSubmit} className="space-y-2">
+            <textarea
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                placeholder="Write your note..."
+                className="w-full border p-2"
+            />
+
+            <select value={tagId} onChange={(e) => setTagId(e.target.value)} className="w-full border p-2">
+                <option value="">-- Select Tag --</option>
                 {tags?.map((tag) => (
                     <option key={tag.id} value={tag.id}>
                         {tag.name}
                     </option>
                 ))}
             </select>
-            <input
-                type="text"
-                value={text}
-                onChange={(e) => setText(e.target.value)}
-                placeholder="Write your note..."
-            />
-            <button onClick={handleSubmit} disabled={isLoading}>
-                {isLoading ? 'Creating...' : 'Create Note'}
+
+            <button type="submit" disabled={isLoading} className="bg-blue-500 text-white px-4 py-2">
+                {isLoading ? 'Adding...' : 'Add Note'}
             </button>
-        </div>
+        </form>
     );
 }
